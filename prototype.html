@@ -15,7 +15,7 @@
 					<h1 class="site-title"><a target="_blank" title="Kai Gao&#39;s Homepage" rel="home">The Structure and Evolution of Software Supply Chain</a></h1>
 			</div>
 		</div>
-
+    <script src="echarts.js"></script>
 	</header>
 
 	<div id="main" class="wrapper">
@@ -55,10 +55,21 @@
 
 <h1 style="text-align: left;margin-bottom:0px">Supply chain structure</h1>
 <h2 style="text-align: left;margin-bottom:0px">Structure</h2>
+<table border rules=rows cellspcing=0 style="margin: auto;font-size: large;">
+    <tr> <th></th> <th>TensorFlow</th> <th>PyTorch</th> </tr>
+    <tr> <th>Start Time</th> <th>2015.11</th> <th>2017.03</th> </tr>
+    <tr> <th>End Time</th> <th>2019.10</th> <th>2019.10</th> </tr>
+    <tr> <th>#Projects (nodes)</th> <th>355,392</th> <th>136,507</th> </tr>
+    <tr> <th>#Packages</th> <th>1,022</th> <th>697</th> </tr>
+    <tr> <th>#Import relationship (edges)</th> <th>369,201</th> <th>152,059</th> </tr>
+    <tr> <th>#Layers</th> <th>6</th> <th>5</th> </tr>
+    <tr> <th>#Projects with downstream</th> <th>614</th> <th>418</th> </tr>
+</table>
+<p></p>
 <h2 style="text-align: left;margin-bottom:0px">Evolution</h2>
 <h2 style="text-align: left;margin-bottom:0px">Vulnerabilities</h2>
 
-<div id="chart1" style="width: 600px;height:400px;text-align: center">
+<div id="chart1" style="width:750px; height:500px;text-align: center;margin: auto;">
     <script type="text/javascript">
       // 基于准备好的dom，初始化echarts实例
       var myChart = echarts.init(document.getElementById('chart1'));

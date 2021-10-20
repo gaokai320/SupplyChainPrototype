@@ -56,7 +56,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	margin: 0;
 	padding: 0;
 	border: 0;
-	font-size: 103%;
+	font-size: 18px;
 	font-family: 'Candara', 'Candara', 'Candara';
 	vertical-align: baseline;
 }
@@ -187,11 +187,11 @@ img {
 .widget-title,
 .entry-content th,
 .comment-content th {
-	font-size: 11px;
-	font-size: 0.785714286rem;
+	font-size: 16px;
+	font-size: 1.2rem;
 	line-height: 2.181818182;
-	font-weight: bold;
-	text-transform: uppercase;
+	font-weight:550;
+	/*text-transform: uppercase;*/
 	color: #636363;
 }
 
@@ -976,16 +976,16 @@ img.aligncenter,
 .comment-content table {
 	border-bottom: 1px solid #ededed;
 	color: #757575;
-	font-size: 12px;
+	font-size: 18px;
 	font-size: 0.857142857rem;
 	line-height: 2;
 	margin: 0 0 24px;
 	margin: 0 0 1.714285714rem;
-	width: 100%;
+	width: 50%;
 }
 .entry-content table caption,
 .comment-content table caption {
-	font-size: 16px;
+	font-size: 18px;
 	font-size: 1.142857143rem;
 	margin: 24px 0;
 	margin: 1.714285714rem 0;
