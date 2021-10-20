@@ -42,30 +42,181 @@
 <h1 style="text-align: left;margin-bottom:0px">Supply chain construction</h1>
 <p>We mainly use two data sources, <a href="https://worldofcode.org/">World of Code (WoC)</a> and <a href="https://libraries.io/">Libraries.io</a>, to construct TensorFlow SC and PyTorch SC.</p>
 <p>WoC is an infrastructure for mining the universe of open source version control system (VCS) data. It collects <a href="https://git-scm.com/book/en/v2/Git-Internals-Git-Objects">Git objects</a> of open source repositories across code hosting platforms, curates the collected data by, for example, deforking repositories and parsing dependencies from each version of source code files (technical dependencies), and provides a variety of ways to query the data. We use <a href="https://github.com/woc-hack/tutorial\#activity-6-investigating-technical-dependencies">WoC query</a> to obtain the package import relationships. The format of a technical dependency record is: <code>commit;repository excluding forks;timestamp;author;blob;language used in WoC;language determined by <a href="https://github.com/universal-ctags/ctags">ctags</a>;filename;modules separated by semicolon</code>. We use version Q of WoC which collects data up to 2019.12. An example technical dependency record which imported TensorFlow is:</p> 
-<div align="center"><img src="./imgs/dependency.jpg" width="500" /></div>
+<figure>
+  <div align="center">
+    <img src="./imgs/dependency.jpg" width="500" />
+    <figcaption>An example record of WoC technical dependency map</figcaption>
+  </div>
+</figure>
+<!-- <div align="center"><img src="./imgs/dependency.jpg" width="500" /></div> -->
 <p>Libraries.io dataset tracks over 2.7m unique open source packages, 33m projects and 235m inter dependencies between them. We downloaded its latest version: January, 2020. We use this dataset to identify which projects in a layer of the SC have released packages and the information about these packages to build the SC.</p>
 <p>The construction process is as following figure:</p>
-<div align="center"><img src="./imgs/construction.jpg" width="500" /></div>
+<figure>
+  <div align="center">
+    <img src="./imgs/construction.jpg" width="500" />
+    <figcaption>An overview of supply chain construction process</figcaption>
+  </div>
+</figure>
 <ol>
     <li>Start from a DL framework, i.e., TensorFlow or PyTorch, query WoC to obtain all projects (noted as &Rho;) that import them (For TensorFlow, its import name is <code>tensorflow</code>; for PyTorch its import name is <code>torch</code>)</li>
     <li>Search Libraries.io to find packages in &Rho;. As package's import name may be different from package's name, e.g., PyTorch's import name is torch. We therefore manually label the import name of packages by referring to their homepage and code.</li>
     <li>For each import name, we search WoC to obtain their downstream projects that import this package to build the next layer of DL SC.</li>
     <li>Repeat this process until the projects in the last/highest layer do not have new packages released, or the packages have no downstream projects.</li>
 </ol>
+<style>
+  .alert {
+    padding: 6px;
+    background-color: #a093cf;
+    color: white;
+  }
+</style>
+  
+<div class="alert">
+  <strong>Note: </strong> 
+  <ol>
+    <li>One project may import a certain package multiple times. For this case, we only retain the first import time to represent the establishment time of the reference relationship</li>
+    <li>For a package with multiple versions, its earlier versions may not import any package in the DL SC, but at time <i>T</i>, it imported. When we obtain the downstream projects of this package, we only retain the downstream projects whose import time is later than <i>T</i>.</li>
+    <li>A project may import the packages at different levels. For this case, we classify it as a higher-layer project. For example, if a project imports packages located at both the second layer and the third layer, we consider this project to be at the fourth (3+1) layer.</li>
+  </ol>
+</div>
 
 <h1 style="text-align: left;margin-bottom:0px">Supply chain structure</h1>
 <h2 style="text-align: left;margin-bottom:0px">Structure</h2>
-<table border rules=rows cellspcing=0 style="margin: auto;font-size: large;">
+<table border 1px solid style="margin: auto;font-size: large;width: 50%;">
+    <caption align="bottom" style="text-align: center;">Basic information of TensorFlow SC and PyTorch SC</caption>
     <tr> <th></th> <th>TensorFlow</th> <th>PyTorch</th> </tr>
-    <tr> <th>Start Time</th> <th>2015.11</th> <th>2017.03</th> </tr>
-    <tr> <th>End Time</th> <th>2019.10</th> <th>2019.10</th> </tr>
-    <tr> <th>#Projects (nodes)</th> <th>355,392</th> <th>136,507</th> </tr>
-    <tr> <th>#Packages</th> <th>1,022</th> <th>697</th> </tr>
-    <tr> <th>#Import relationship (edges)</th> <th>369,201</th> <th>152,059</th> </tr>
-    <tr> <th>#Layers</th> <th>6</th> <th>5</th> </tr>
-    <tr> <th>#Projects with downstream</th> <th>614</th> <th>418</th> </tr>
+    <tr> <td>Start Time</td> <td>2015.11</td> <td>2017.03</td> </tr>
+    <tr> <td>End Time</td> <td>2019.10</td> <td>2019.10</td> </tr>
+    <tr> <td>#Projects (nodes)</td> <td>355,392</td> <td>136,507</td> </tr>
+    <tr> <td>#Packages</td> <td>1,022</td> <td>697</td> </tr>
+    <tr> <td>#Import relationship (edges)</td> <td>369,201</td> <td>152,059</td> </tr>
+    <tr> <td>#Layers</td> <td>6</td> <td>5</td> </tr>
+    <tr> <td>#Projects with downstream</td> <td>614</td> <td>418</td> </tr>
 </table>
-<p></p>
+<ul>
+  <li>Both TensorFlow and PyTorch SCs have substantial projects, i.e., 355,392 and 136,507 respectively.</li>
+  <li>Both SCs are short, with only six or five layers, which indicates that the length of SCs can not grow indefinitely.</li>
+  <li>Only a few projects have released packages, for TensorFlow SC, 0.29% projects are packages, and for PyTorch, that is 0.51%, indicating that that almost all the projects in the DL SCs are use-oriented</li>
+  <li>A significant number of these packages are not referenced by any project, for TensorFlow SC, 33.9% packages don't have downstream projects, for PyTorch, that is 40.0%</li>
+  <li></li>
+</ul>
+
+<table style="width: 90%; margin-left: auto; margin-right: auto;" border="1">
+  <tbody>
+  <tr style="text-align: center; height: 35px;">
+  <td style="width: 592.275px; height: 35px;" colspan="3">TensorFlow&nbsp;&nbsp;</td>
+  <td style="width: 440.725px; height: 35px;" colspan="3">&nbsp;PyTorch&nbsp;&nbsp;</td>
+  </tr>
+  <tr style="text-align: center; height: 51px;">
+  <td style="width: 204.788px; height: 51px;">
+  <p>Project Layer</p>
+  </td>
+  <td style="width: 248.962px; height: 51px;">Layers of Dependent Projects</td>
+  <td style="width: 138.525px; height: 51px;">Count</td>
+  <td style="width: 119.238px; height: 51px;">Project Layer</td>
+  <td style="width: 202.975px; height: 51px;">Layers of Dependent Projects</td>
+  <td style="width: 118.512px; height: 51px;">Count</td>
+  </tr>
+  <tr style="height: 35px;">
+  <td style="width: 204.788px; height: 35px;">1</td>
+  <td style="width: 248.962px; height: 35px;">
+  <p>/</p>
+  </td>
+  <td style="width: 138.525px; height: 35px;">1</td>
+  <td style="width: 119.238px; height: 35px;">1</td>
+  <td style="width: 202.975px; height: 35px;">/</td>
+  <td style="width: 118.512px; height: 35px;">1</td>
+  </tr>
+  <tr style="height: 35px;">
+  <td style="width: 204.788px; height: 35px;">2</td>
+  <td style="width: 248.962px; height: 35px;">1</td>
+  <td style="width: 138.525px; height: 35px;">317,115</td>
+  <td style="width: 119.238px; height: 35px;">2</td>
+  <td style="width: 202.975px; height: 35px;">1</td>
+  <td style="width: 118.512px; height: 35px;">112,516</td>
+  </tr>
+  <tr style="height: 35.6375px;">
+  <td style="width: 204.788px; height: 35.6375px;" rowspan="2">3</td>
+  <td style="width: 248.962px; height: 35.6375px;">2</td>
+  <td style="width: 138.525px; height: 35.6375px;">&nbsp;</td>
+  <td style="width: 119.238px; height: 35.6375px;">&nbsp;</td>
+  <td style="width: 202.975px; height: 35.6375px;">&nbsp;</td>
+  <td style="width: 118.512px; height: 35.6375px;">&nbsp;</td>
+  </tr>
+  <tr style="height: 35px;">
+  <td style="width: 248.962px; height: 35px;">1,2</td>
+  <td style="width: 138.525px; height: 35px;">&nbsp;</td>
+  <td style="width: 119.238px; height: 35px;">&nbsp;</td>
+  <td style="width: 202.975px; height: 35px;">&nbsp;</td>
+  <td style="width: 118.512px; height: 35px;">&nbsp;</td>
+  </tr>
+  <tr style="height: 35px;">
+  <td style="width: 204.788px; height: 35px;" rowspan="4">4&nbsp;&nbsp;&nbsp;&nbsp;</td>
+  <td style="width: 248.962px; height: 35px;">&nbsp;3</td>
+  <td style="width: 138.525px; height: 35px;">&nbsp;</td>
+  <td style="width: 119.238px; height: 35px;">&nbsp;</td>
+  <td style="width: 202.975px; height: 35px;">&nbsp;</td>
+  <td style="width: 118.512px; height: 35px;">&nbsp;</td>
+  </tr>
+  <tr style="height: 35px;">
+  <td style="width: 248.962px; height: 35px;">&nbsp;1, 3</td>
+  <td style="width: 138.525px; height: 35px;">&nbsp;</td>
+  <td style="width: 119.238px; height: 35px;">&nbsp;</td>
+  <td style="width: 202.975px; height: 35px;">&nbsp;</td>
+  <td style="width: 118.512px; height: 35px;">&nbsp;</td>
+  </tr>
+  <tr style="height: 35px;">
+  <td style="width: 248.962px; height: 35px;">&nbsp;2, 3</td>
+  <td style="width: 138.525px; height: 35px;">&nbsp;</td>
+  <td style="width: 119.238px; height: 35px;">&nbsp;</td>
+  <td style="width: 202.975px; height: 35px;">&nbsp;</td>
+  <td style="width: 118.512px; height: 35px;">&nbsp;</td>
+  </tr>
+  <tr style="height: 35px;">
+  <td style="width: 248.962px; height: 35px;">&nbsp;1, 2, 3</td>
+  <td style="width: 138.525px; height: 35px;">&nbsp;</td>
+  <td style="width: 119.238px; height: 35px;">&nbsp;</td>
+  <td style="width: 202.975px; height: 35px;">&nbsp;</td>
+  <td style="width: 118.512px; height: 35px;">&nbsp;</td>
+  </tr>
+  <tr style="height: 35px;">
+  <td style="width: 204.788px; height: 35px;">&nbsp;</td>
+  <td style="width: 248.962px; height: 35px;">&nbsp;</td>
+  <td style="width: 138.525px; height: 35px;">&nbsp;</td>
+  <td style="width: 119.238px; height: 35px;">&nbsp;</td>
+  <td style="width: 202.975px; height: 35px;">&nbsp;</td>
+  <td style="width: 118.512px; height: 35px;">&nbsp;</td>
+  </tr>
+  <tr style="height: 35px;">
+  <td style="width: 204.788px; height: 35px;">&nbsp;</td>
+  <td style="width: 248.962px; height: 35px;">&nbsp;</td>
+  <td style="width: 138.525px; height: 35px;">&nbsp;</td>
+  <td style="width: 119.238px; height: 35px;">&nbsp;</td>
+  <td style="width: 202.975px; height: 35px;">&nbsp;</td>
+  <td style="width: 118.512px; height: 35px;">&nbsp;</td>
+  </tr>
+  <tr style="height: 35px;">
+  <td style="width: 204.788px; height: 35px;">&nbsp;</td>
+  <td style="width: 248.962px; height: 35px;">&nbsp;</td>
+  <td style="width: 138.525px; height: 35px;">&nbsp;</td>
+  <td style="width: 119.238px; height: 35px;">&nbsp;</td>
+  <td style="width: 202.975px; height: 35px;">&nbsp;</td>
+  <td style="width: 118.512px; height: 35px;">&nbsp;</td>
+  </tr>
+  </tbody>
+  </table>
+  <!-- DivTable.com -->
+
+<table border 1px solid style="margin: auto;font-size: large;">
+<tr><th colspan="2", style="text-align: center;">TensorFlow</th><th colspan="2", style="text-align: center;">PyTorch</th>
+ <tr><td style="text-align: center;">Project Layer</td><td style="text-align: center;">Layers of<br/>DependentProjects</td><td style="text-align: center;">Count</td><td style="text-align: center;">Project Layer</td><td style="text-align: center;">Layers of<br/>DependentProjects</td><td style="text-align: center;">Count</td></tr>
+ <tr><td>&nbsp;</td><td>/</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+ <tr><td>&nbsp;</td><td>1</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+ <tr><td>&nbsp;</td><td>2</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+ <tr><td>&nbsp;</td><td>1,2</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+ <tr><td>&nbsp;</td><td>3</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td></td></tr>
+</table>
+
 <h2 style="text-align: left;margin-bottom:0px">Evolution</h2>
 <h2 style="text-align: left;margin-bottom:0px">Vulnerabilities</h2>
 

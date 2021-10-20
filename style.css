@@ -85,7 +85,7 @@ table {
 caption,
 th,
 td {
-	font-weight: normal;
+	font-weight: bold;
 	text-align: left;
 }
 h1,
@@ -981,7 +981,7 @@ img.aligncenter,
 	line-height: 2;
 	margin: 0 0 24px;
 	margin: 0 0 1.714285714rem;
-	width: 50%;
+	
 }
 .entry-content table caption,
 .comment-content table caption {
@@ -992,8 +992,8 @@ img.aligncenter,
 }
 .entry-content td,
 .comment-content td {
-	border-top: 1px solid #ededed;
-	padding: 6px 10px 6px 0;
+	border-top: 1.5px solid #ededed;
+	
 }
 .site-content article {
 	border-bottom: 4px double #ededed;
