@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+
+<html lang="en-US"><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>Software Supply Chain Prototype</title>
+<link rel="stylesheet" id="twentytwelve-style-css" target="_blank" href="./style.css" type="text/css" media="all">
+</head>
+
+<body class="home blog admin-bar no-customize-support full-width custom-font-enabled single-author">
+<div id="page" class="hfeed site">
+	<header class="site-header">
+		
+		<div class="post-container" style="height:80px">
+			<div class="post-thumb" style="padding-top:10px">
+					<h1 class="site-title"><a target="_blank" title="Kai Gao&#39;s Homepage" rel="home">The Structure and Evolution of Software Supply Chain</a></h1>
+			</div>
+		</div>
+
+	</header>
+
+	<div id="main" class="wrapper">
+	<div id="primary" class="site-content">
+		<div id="content" role="main">
+										
+	<article id="post-1" class="post-1 post type-post status-publish format-standard hentry category-research">
+
+		<div class="entry-content">
+			
+		<div class="post-container">                
+		<div class="post-content" style="text-align: justify">
+			<h1 style="margin:-2px 0 0 0"> Introduction </h1>
+                  		
+					<p style="margin:15px 0 0 0">			
+                        In the software development process, developers often reuse software written by other developers in the form of software dependencies. A large amount of software forms a complex software supply chain (SC) through project dependencies. There are many kinds of dependencies, e.g., runtime dependency, importint a software package in the program, developer dependency, etc. Here we refer to dependency as importing a software package, e.g., <code>import tensorflow as tf</code>. The number of projects involved in the software suuply chain is huge and the dependencies is complex. But there is a lack of effective modelling and analysis methods for SC, which therefore limits our understanding of software SC, e.g., the basic structure, and the maintenance and utilization of SC. In the following, we take the two most popular deep learning framework, i.e., TensorFlow and PyTorch, as a starting point to explore the modeling and analysis methods of SC. </p>
+
+                    <p></p>
+	       </div>
+		</div>		
+
+<hr>
+                
+<h1 style="text-align: left;margin-bottom:0px">Supply chain construction</h1>
+<p>We mainly use two data sources, <a href="https://worldofcode.org/">World of Code (WoC)</a> and <a href="https://libraries.io/">Libraries.io</a>, to construct TensorFlow SC and PyTorch SC.</p>
+<p>WoC is an infrastructure for mining the universe of open source version control system (VCS) data. It collects <a href="https://git-scm.com/book/en/v2/Git-Internals-Git-Objects">Git objects</a> of open source repositories across code hosting platforms, curates the collected data by, for example, deforking repositories and parsing dependencies from each version of source code files (technical dependencies), and provides a variety of ways to query the data. We use <a href="https://github.com/woc-hack/tutorial\#activity-6-investigating-technical-dependencies">WoC query</a> to obtain the package import relationships. The format of a technical dependency record is: <code>commit;repository excluding forks;timestamp;author;blob;language used in WoC;language determined by <a href="https://github.com/universal-ctags/ctags">ctags</a>;filename;modules separated by semicolon</code>. We use version Q of WoC which collects data up to 2019.12. An example technical dependency record which imported TensorFlow is:</p> 
+<div align="center"><img src="./imgs/dependency.jpg" width="500" /></div>
+<p>Libraries.io dataset tracks over 2.7m unique open source packages, 33m projects and 235m inter dependencies between them. We downloaded its latest version: January, 2020. We use this dataset to identify which projects in a layer of the SC have released packages and the information about these packages to build the SC.</p>
+<p>The construction process is as following figure:</p>
+<div align="center"><img src="./imgs/construction.jpg" width="500" /></div>
+<ol>
+    <li>Start from a DL framework, i.e., TensorFlow or PyTorch, query WoC to obtain all projects (noted as &Rho;) that import them (For TensorFlow, its import name is <code>tensorflow</code>; for PyTorch its import name is <code>torch</code>)</li>
+    <li>Search Libraries.io to find packages in &Rho;. As package's import name may be different from package's name, e.g., PyTorch's import name is torch. We therefore manually label the import name of packages by referring to their homepage and code.</li>
+    <li>For each import name, we search WoC to obtain their downstream projects that import this package to build the next layer of DL SC.</li>
+    <li>Repeat this process until the projects in the last/highest layer do not have new packages released, or the packages have no downstream projects.</li>
+</ol>
+
+<h1 style="text-align: left;margin-bottom:0px">Supply chain structure</h1>
+<h2 style="text-align: left;margin-bottom:0px">Structure</h2>
+<h2 style="text-align: left;margin-bottom:0px">Evolution</h2>
+<h2 style="text-align: left;margin-bottom:0px">Vulnerabilities</h2>
+
+<div id="chart1" style="width: 600px;height:400px;text-align: center">
+    <script type="text/javascript">
+      // 基于准备好的dom，初始化echarts实例
+      var myChart = echarts.init(document.getElementById('chart1'));
+
+      // 指定图表的配置项和数据
+      var option = {
+        title: {
+          text: 'ECharts 入门示例',
+          left: "center"
+        },
+        tooltip: {},
+        legend: {
+          data: ['销量'],
+          top: 'center',
+          right: 10
+        },
+        xAxis: {
+          data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子']
+        },
+        yAxis: {},
+        series: [
+          {
+            name: '销量',
+            type: 'bar',
+            data: [5, 20, 36, 10, 10, 20]
+          }
+        ]
+      };
+
+      // 使用刚指定的配置项和数据显示图表。
+      myChart.setOption(option);
+    </script>
+</div>
+
+</div><!-- .entry-content -->
+
+
+</article><!-- #post -->
+</div><!-- #content -->
+</div><!-- #primary -->
+
+
+
+</body></html>
