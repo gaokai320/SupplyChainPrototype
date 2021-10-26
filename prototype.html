@@ -82,7 +82,7 @@
 
 <h1 style="text-align: left;margin-bottom:0px">Supply Chain Structure</h1>
 <h2 style="text-align: left;margin-bottom:0px">Structure</h2>
-<table border 1px solid style="margin: auto;font-size: large;width: 60%;">
+<table style="margin: auto;font-size: small;width: 60%;">
     <caption align="bottom" style="text-align: center;">Basic information of TensorFlow SC and PyTorch SC</caption>
     <tr> <th></th> <th>TensorFlow</th> <th>PyTorch</th> </tr>
     <tr> <td>Start Time</td> <td>2015.11</td> <td>2017.03</td> </tr>
@@ -706,6 +706,9 @@ option2 && myChart2.setOption(option2);
 <p>We analyze the domain distribution of a SC from two perspectives: packages and projects.</p>
 <h2 style="text-align: left;margin-bottom:0px">Package Domain Distribution</h2>
 <p>Software packages play a key role in the formation and evolution of SCs, so analyzing the functions of packages helps to understand the tool support provided by SCs. We manually label packages with no less than ten downstream projects, resulting in 215 packages in TensorFlow SC and 142 packages in PyTorch SC. The results are shown in the following two figures.</p>
+<p>We totally find 51 types of packages in the two DL SCs, covering  domain-related packages (DR) and non-domain related packages (NDR). The non-domain related packages account for more than half, including framework (an ecosystem of tools and other resources that provide workflows with high-level APIs, which can help developers to build and deploy models), model (a file that has been trained to recognize certain types of patterns, usually applicable to certain type of tasks), wrapper (provide a different way to use wrapped object, e.g., providing a simpler interface, or adding some functionality), and tutorial, and provide a rich variety of support tools, including related tools to assist model training, analysis, and deployment. Domain-related packages cover a wide range of fields, such as hot areas including Computer Vision (CV), Natural Language Processing (NLP), and Reinforcement Learning (RL), as well as interdisciplinary fields, e.g., biology, medicine, geography, and physics, under which there are two main package types: model and framework.</p>
+
+<p>There are also some differences between the two SCs. Firstly, from the perspective of packages type, PyTorch SC seems to contain more framework packages in the specific domains, while TensorFlow SC seems to contain more general supporting tools (e.g., Model Pruning, Encryption, and Interpretability). Secondly, from the perspective of packages proportion, TensorFlow SC provides a wealth of packages in experiment result analysis, represented by <a href="https://github.com/tensorflow/tensorboard">TensorBoard</a>, whereas the support of PyTorch SC in this aspect is relatively weak. Further, PyTorch SC seems to have a higher proportion in general Framework, while TensorFlow SC seems to pay more attention to general wrappers. It may suggest that PyTorch are more flexible and developer-friendly, while TensorFlow feels a lot more like a library rather than a framework, so the wrappers aim to make it more simple to use and applicable to different scenarios. Finally, for the domain-related packages, both DL SCs cover various fields. Among them, TensorFlow SC provides more packages in reinforcement learning (RL), which is mainly due to the popularity of <a href="https://www.tensorflow.org/agents">TensorFlow Agent</a> and <a href="https://github.com/openai/baselines">OpenAI Baselines</a>.</p>
 <div id="chart6" style="width:100%; height:1000px;text-align: center;margin: auto;"></div>
 <script type="text/javascript">
 var chartDom = document.getElementById('chart6');
@@ -1308,6 +1311,43 @@ option = {
 option && myChart.setOption(option);
 
 </script>
+
+<p>For each packge type, we also calculate the number of the projects that import packages in them and list the top 10 most popular package types for each SC in the following table. For Both SCs, the non-domain related packages of the DL tools are most popular. Compared with PyTorch SC, the domain related packages of RL and non-domain related packages of wrappers in the TensorFlow SC are obviously more popular, consistent with the abundance of such packages. In the PyTorch SC, the non-domain related packages of DL framework has a wide range of downstream projects. For the packages in the hot fields, such as CV and NLP, their popularity does not show significant differences in the two DL supply chains.</p>
+
+<style type="text/css">
+  .tg {
+      margin: auto;
+      font-size: large;
+      width: 100%;
+  }
+  .tg td{
+    text-align: center;
+    vertical-align: middle;
+    border: 1pt solid;
+
+  }
+  .tg th{
+      text-align: center;
+      border: 1pt solid;
+  }
+
+
+</style>
+<table class="tg">
+<tr><th>&nbsp</th><th colspan="2">TensorFlow SC</th><th colspan="2">PyTorch SC</th>
+ <tr><td>Rank</td><td>Type</td><td>Count</td><td>Type</td><td>Count</td></tr>
+ <tr><td>1</td><td>NDR, Tools</td><td>18,372</td><td>NDR, Tools</td><td>14,080</td></tr>
+ <tr><td>2</td><td>DR, RL</td><td>3,902</td><td>NDR, Framework</td><td>2,930</td></tr>
+ <tr><td>3</td><td>DR, CV</td><td>3,138</td><td>DR, CV</td><td>2,412</td></tr>
+ <tr><td>4</td><td>DR, NLP</td><td>1,437</td><td>DR, NLP</td><td>821</td></tr>
+ <tr><td>5</td><td>NDR, Wrapper</td><td>1,159</td><td>DR, Audio</td><td>782</td></tr>
+ <tr><td>6</td><td>NDR, Model</td><td>829</td><td>DR, RL</td><td>376</td></tr>
+ <tr><td>7</td><td>NDR, Framework</td><td>693</td><td>DR, Medicine</td><td>336</td></tr>
+ <tr><td>8</td><td>DR, Biology</td><td>619</td><td>NDR, Physics</td><td>315</td></tr>
+ <tr><td>9</td><td>DR, Physics</td><td>563</td><td>NDR, Model</td><td>261</td></tr>
+ <tr><td>10</td><td>DR, Medicine</td><td>353</td><td>DR, Graph DL</td><td>242</td></tr>
+</table>
+
 
 <h2 style="text-align: left;margin-bottom:0px">Project Domain Distribution</h2>
 

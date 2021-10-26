@@ -57,7 +57,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	padding: 0;
 	border: 0;
 	font-size: 18px;
-	font-family: 'Candara', 'Candara', 'Candara';
+	font-family: 'Helvetica', 'Helvetica', 'Helvetica';
 	vertical-align: baseline;
 }
 body {
@@ -211,7 +211,7 @@ select,
 textarea {
 	border: 1px solid #ccc;
 	border-radius: 3px;
-	font-family: 'Candara', 'Candara', 'Candara';
+	font-family: 'Helvetica', 'Helvetica', 'Helvetica';
 	padding: 6px;
 	padding: 0.428571429rem;
 }
@@ -517,7 +517,7 @@ body {
 	color: #444;
 }
 body.custom-font-enabled {
-	font-family: 'Candara', 'Candara', 'Candara';
+	font-family: 'Helvetica', 'Helvetica', 'Helvetica';
 }
 a {
 	outline: none;
@@ -894,8 +894,7 @@ article.sticky .featured-post {
 .entry-content code,
 .comment-content code {
 	font-family: Consolas, Monaco, Lucida Console, monospace;
-	font-size: 12px;
-	font-size: 0.857142857rem;
+	font-size: 16px;
 	line-height: 2;
 }
 .entry-content pre,
@@ -903,8 +902,7 @@ article.sticky .featured-post {
 	border: 1px solid #ededed;
 	color: #666;
 	font-family: Consolas, Monaco, Lucida Console, monospace;
-	font-size: 12px;
-	font-size: 0.857142857rem;
+	font-size: 16px;
 	line-height: 1.714285714;
 	margin: 24px 0;
 	margin: 1.714285714rem 0;
@@ -977,8 +975,9 @@ img.aligncenter,
 .comment-content table {
 	border-bottom: 1px solid #ededed;
 	color: #757575;
-	font-size: 18px;
-	font-size: 0.857142857rem;
+	font-size: 16px;
+	font-weight: normal;
+	/* font-size: 0.857142857rem; */
 	line-height: 2;
 	margin: 0 0 24px;
 	margin: 0 0 1.714285714rem;
@@ -986,8 +985,8 @@ img.aligncenter,
 }
 .entry-content table caption,
 .comment-content table caption {
-	font-size: 18px;
-	font-size: 1.142857143rem;
+	font-size: 16px;
+	/* font-size: 1.142857143rem; */
 	margin: 24px 0;
 	margin: 1.714285714rem 0;
 }
