@@ -40,8 +40,8 @@
 <hr>
                 
 <h1 style="text-align: left;margin-bottom:0px">Supply chain construction</h1>
-<p>We mainly use two data sources, <a href="https://worldofcode.org/">World of Code (WoC)</a> and <a href="https://libraries.io/">Libraries.io</a>, to construct TensorFlow SC and PyTorch SC.</p>
-<p>WoC is an infrastructure for mining the universe of open source version control system (VCS) data. It collects <a href="https://git-scm.com/book/en/v2/Git-Internals-Git-Objects">Git objects</a> of open source repositories across code hosting platforms, curates the collected data by, for example, deforking repositories and parsing dependencies from each version of source code files (technical dependencies), and provides a variety of ways to query the data. We use <a href="https://github.com/woc-hack/tutorial\#activity-6-investigating-technical-dependencies">WoC query</a> to obtain the package import relationships. The format of a technical dependency record is: <code>commit;repository excluding forks;timestamp;author;blob;language used in WoC;language determined by <a href="https://github.com/universal-ctags/ctags">ctags</a>;filename;modules separated by semicolon</code>. We use version Q of WoC which collects data up to 2019.12. An example technical dependency record which imported TensorFlow is:</p> 
+<p>We mainly use two data sources, <a href="https://worldofcode.org/" style="font-weight: bold;">World of Code (WoC)</a> and <a href="https://libraries.io/" style="font-weight: bold;">Libraries.io</a>, to construct TensorFlow SC and PyTorch SC.</p>
+<p>WoC is an infrastructure for mining the universe of open source version control system (VCS) data. It collects <a href="https://git-scm.com/book/en/v2/Git-Internals-Git-Objects" style="font-weight: bold;">Git objects</a> of open source repositories across code hosting platforms, curates the collected data by, for example, deforking repositories and parsing dependencies from each version of source code files (technical dependencies), and provides a variety of ways to query the data. We use <a href="https://github.com/woc-hack/tutorial\#activity-6-investigating-technical-dependencies" style="font-weight: bold;">WoC query</a> to obtain the package import relationships. The format of a technical dependency record is: <code>commit;repository excluding forks;timestamp;author;blob;language used in WoC;language determined by <a href="https://github.com/universal-ctags/ctags" style="font-weight: bold;">ctags</a>;filename;modules separated by semicolon</code>. We use version Q of WoC which collects data up to 2019.12. An example technical dependency record which imported TensorFlow is:</p> 
 <figure>
   <div align="center">
     <img src="./imgs/dependency.jpg" width="500" />
@@ -580,7 +580,7 @@ option2 && myChart2.setOption(option2);
 </script>
 
 <p>The following figure shows the distribution of the fraction of downstream projects obtained in the first and last month of the packages in the two SCs. In the first month, the fraction of downstream projects gained is 5.50%/13.32% (median/mean for TensorFlow SC) and 5.97% / 12.05% (median/mean for PyTorch SC). For the last month, the fraction of downstream projects gained is 11.99% / 16.22% (median / mean for TensorFlow SC) and 12.50%/16.27% (median / mean for PyTorch SC). </p>
-<p>By applying the Mann-Whitney U test, we find that for both SCs, the distributions are different (p-value < 0.001) with a medium effect size (TensorFlow SC: 0.27; PyTorch SC: 0.27). It means that for the packages in DL SCs, the downstream projects do not have explosive growth in the early stage. Compared to the early stage, the project accumulation in the later stage is faster. For example, <a href="{https://tvm.apache.org/">tvm</a> is a DL compiler stack for cpu, gpu and specialized accelerators, which is in the second layer of PyTorch SC and was released on 2017-07-30. During the first three months after its release, it attracted four downstream projects, and since then this number increases to 12 projects per month.</p>
+<p>By applying the Mann-Whitney U test, we find that for both SCs, the distributions are different (p-value < 0.001) with a medium effect size (TensorFlow SC: 0.27; PyTorch SC: 0.27). It means that for the packages in DL SCs, the downstream projects do not have explosive growth in the early stage. Compared to the early stage, the project accumulation in the later stage is faster. For example, <a href="https://tvm.apache.org/" style="font-weight: bold;">tvm</a> is a DL compiler stack for cpu, gpu and specialized accelerators, which is in the second layer of PyTorch SC and was released on 2017-07-30. During the first three months after its release, it attracted four downstream projects, and since then this number increases to 12 projects per month.</p>
 <div id="chart5" style="width: 70%; height: 400px; text-align: center;margin: auto;"></div>
 <script type="text/javascript">
   var chartDom = document.getElementById('chart5');
@@ -678,26 +678,27 @@ option2 && myChart2.setOption(option2);
 </script>
 
 <h2 style="text-align: left;margin-bottom:0px">Vulnerabilities</h2>
-
-
+<p><b>Most Impactive Projects.</b> The most critical projects have cascading impact on their downstream projects. We consider the number of all direct dependents and transitive dependents in a SC as a project's in-degree. The in-degree distributions of the projects in TensorFlow SC and PyTorch SC are shown in the following figure. A substantial number of projects in the SCs do not have any downstream projects, which means that they have no chance to impact other projects. We label the top three most impactive projects in the two DL SCs. Beside TensorFlow and PyTorch, some supporting tools, e.g., <a href="https://github.com/lanpa/tensorboardX" style="font-weight: bold;">tensorboardX</a> and <a href="https://github.com/waveform80/picamera" style="font-weight: bold;">picamera</a> are extremely popular so that they may introduce great threats to the security of the SCs. Therefore, careful maintenance by developers is needed.</p>
 <figure>
   <div align="center">
     <img src="./imgs/in_degree.png" width="500"/>
-    <figcaption>An overview of supply chain construction process</figcaption>
+    <figcaption>In-degree Distribution of the Projects.</figcaption>
   </div>
 </figure>
 
+<p><b>Most Vulnerable Projects.</b> The more packages a project depends on, the more vulnerable it may be. We consider the number of all direct dependencies and transitive dependencies in a SC as a project's out-degress. The out-degree distributions of the projects in TensorFlow SC and PyTorch SC are shown in the following figure. More than 80% of the projects only import one DL package, which means that they are relatively safe. However, there are still a few projects that import dozens of DL packages. Once any dependent package is attacked, it will be affected. An intriguing note is that the top three most vulnerable packages in the two DL SCs are the same because some packages are suitable for different DL ecosystems. It means that distinct SCs are not fully independent; rather, they're developing and evolving together.</p>
 <figure>
   <div align="center">
     <img src="./imgs/out_degree.png" width="500"/>
-    <figcaption>An overview of supply chain construction process</figcaption>
+    <figcaption>Out-degree Distribution of the Projects.</figcaption>
   </div>
 </figure>
 
+<p><b>Projects have the Most Chance of being a Single Point of Failure.</b> Projects may form clusters through inter dependencies. A few projects may become bridges among these clusters. Therefore, by identifying the nodes that have high betweenness centrality but low degree centrality, we can find the projects that are more likely to be a single point of failure once they are removed. The results are shown in the following figure. <a href="https://github.com/funkey/gunpowder" style="font-weight: bold;">gunpowder</a> seems to have a more critical location in the PyTorch SC.</p>
 <figure>
   <div align="center">
     <img src="./imgs/betweenness_degree.png" width="500"/>
-    <figcaption>An overview of supply chain construction process</figcaption>
+    <figcaption>Degree Centrality and Betweenness Centrality of the Projects.</figcaption>
   </div>
 </figure>
 
