@@ -80,7 +80,7 @@
   </ol>
 </div>
 
-<h1 style="text-align: left;margin-bottom:0px">Supply chain structure</h1>
+<h1 style="text-align: left;margin-bottom:0px">Supply Chain Structure</h1>
 <h2 style="text-align: left;margin-bottom:0px">Structure</h2>
 <table border 1px solid style="margin: auto;font-size: large;width: 60%;">
     <caption align="bottom" style="text-align: center;">Basic information of TensorFlow SC and PyTorch SC</caption>
@@ -702,6 +702,616 @@ option2 && myChart2.setOption(option2);
   </div>
 </figure>
 
+<h1 style="text-align: left;margin-bottom:0px">Supply Chain Domain Distribution</h1>
+<p>We analyze the domain distribution of a SC from two perspectives: packages and projects.</p>
+<h2 style="text-align: left;margin-bottom:0px">Package Domain Distribution</h2>
+<p>Software packages play a key role in the formation and evolution of SCs, so analyzing the functions of packages helps to understand the tool support provided by SCs. We manually label packages with no less than ten downstream projects, resulting in 215 packages in TensorFlow SC and 142 packages in PyTorch SC. The results are shown in the following two figures.</p>
+<div id="chart6" style="width:100%; height:1000px;text-align: center;margin: auto;"></div>
+<script type="text/javascript">
+var chartDom = document.getElementById('chart6');
+var myChart = echarts.init(chartDom);
+var option;
+
+var data = [
+  {
+    name: 'NDR',
+    children: [
+      {
+        name: 'Tools',
+        value: 50,
+        children: [
+          {
+            name: 'Model Training',
+            value: 19,
+            children: [
+                {
+                    name: 'Simplication',
+                    value: 7
+                },
+                {
+                    name: 'Others',
+                    value: 4
+                },
+                {
+                    name: 'Acceleration',
+                    value: 2
+                },
+                {
+                    name: 'Batch',
+                    value: 2
+                },
+                {
+                    name: 'Fairness',
+                    value: 2
+                },
+                {
+                    name: 'Parameter',
+                    value: 2
+                },
+            ]
+          },
+          {
+            name: 'Experiment\nResult Analysis',
+            value: 13,
+            children: [
+              {
+                name: 'Visualization',
+                value: 7
+              },
+              {
+                name: 'Log',
+                value: 6
+              }
+            ]
+          },
+          {
+            name: 'Model Conversion',
+            value: 8
+          },
+          {
+            name: 'Deployment',
+            value: 6,
+            children: [
+              {
+                name: 'Cloud',
+                value: 3
+              },
+              {
+                name: 'Web',
+                value: 2
+              },
+              {
+                name: 'Unknown',
+                value: 1
+              }
+            ]
+          },
+          {
+            name: 'Testing',
+            value: 1
+          },
+          {
+            name: 'Interpretability',
+            value: 1
+          },
+          {
+            name: 'Model Pruning',
+            value: 1
+          },
+          {
+            name: 'Encryption',
+            value: 1
+          },
+        ]
+      },
+      {
+        name: 'Model',
+        value: 17,
+      },
+      {
+          name: 'Wrapper',
+          value: 16
+      },
+      {
+          name: 'Framework',
+          value: 11
+      },
+      {
+          name: 'Tutorial',
+          value: 5
+      }
+      
+    ]
+  },
+  {
+    name: 'DR',
+    children: [
+      {
+        name: 'Computer Vision',
+        children: [
+          {
+            name: 'Model',
+            value: 21
+          },
+          {
+            name: 'Wrapper',
+            value: 2
+          },
+          {
+            name: "Data Processing",
+            value: 2
+          }
+        ]
+      },
+      {
+        name: 'Natural\nLanguage\nProcessing',
+        children: [
+          {
+            name: 'Model',
+            value: 12
+          },
+          {
+            name: 'Framework',
+            value: 2
+          },
+          {
+            name: "Data Processing",
+            value: 2
+          }
+        ]
+      },
+      {
+        name: 'Reinforcement\nLearning',
+        children: [
+          {
+            name: 'Model',
+            value: 7
+          },
+          {
+            name: 'Framework',
+            value: 4
+          },
+          {
+            name: "Environment",
+            value: 4
+          },
+          {
+            name: 'Wrapper',
+            value: 1
+          },
+        ]
+      },
+      {
+        name: 'Physics',
+        children: [
+          {
+            name: 'Model',
+            value: 6
+          },
+          {
+            name: 'Framework',
+            value: 3
+          },
+        ]
+      },
+      {
+        name: 'Biology',
+        children: [
+          {
+            name: 'Model',
+            value: 5
+          },
+          {
+            name: 'Data Processing',
+            value: 3
+          },
+        ]
+      },
+      {
+        name: 'Audio',
+        children: [
+          {
+            name: 'Model',
+            value: 4
+          },
+          {
+            name: 'Data Processing',
+            value: 1
+          },
+        ]
+      },
+      {
+        name: 'Medicine',
+        children: [
+          {
+            name: 'Model',
+            value: 5
+          },
+        ]
+      },
+      {
+        name: 'Multi-task Learning',
+        children: [
+          {
+            name: 'Framework',
+            value: 3
+          },
+        ]
+      },
+      {
+        name: 'Graph DL',
+        children: [
+          {
+            name: 'Model',
+            value: 3
+          },
+        ]
+      },
+      {
+        name: 'Time Series',
+        children: [
+          {
+            name: 'Model',
+            value: 2
+          },
+          {
+            name: 'Framework',
+            value: 1
+          },
+        ]
+      },
+      {
+        name: 'Geography',
+        children: [
+          {
+            name: 'Model',
+            value: 1
+          },
+          {
+            name: 'Wrapper',
+            value: 1
+          },
+        ]
+      },
+      {
+        name: 'Transfer Learning',
+        children: [
+          {
+            name: 'Model',
+            value: 1
+          },
+        ]
+      },
+    ]
+  }
+];
+option = {
+  series: {
+    type: 'sunburst',
+    // emphasis: {
+    //     focus: 'ancestor'
+    // },
+    data: data,
+    radius: [0, '90%'],
+    label: {
+      rotate: 'radial'
+    }
+  }
+};
+
+option && myChart.setOption(option);
+
+</script>
+
+<div id="chart7" style="width:100%; height:1000px;text-align: center;margin: auto;"></div>
+<script type="text/javascript">
+var chartDom = document.getElementById('chart7');
+var myChart = echarts.init(chartDom);
+var option;
+
+var data = [
+  {
+    name: 'NDR',
+    children: [
+      {
+        name: 'Tools',
+        value: 36,
+        children: [
+          {
+            name: 'Model Training',
+            value: 14,
+            children: [
+                {
+                    name: 'Simplication',
+                    value: 8
+                },
+                {
+                    name: 'Acceleration',
+                    value: 3
+                },
+                {
+                    name: 'Others',
+                    value: 2
+                },
+                {
+                    name: 'Fairness',
+                    value: 1
+                },
+            ]
+          },
+          {
+            name: 'Model Conversion',
+            value: 9
+          },
+          {
+            name: 'Model Comparison',
+            value: 4
+          },
+          {
+            name: 'Deployment',
+            value: 4,
+            children: [
+              {
+                name: 'Others',
+                value: 2
+              },
+              {
+                name: 'Web',
+                value: 1
+              },
+              {
+                name: 'Cloud',
+                value: 1
+              },
+              
+            ]
+          },
+          {
+            name: 'Experiment\nResult Analysis',
+            value: 3,
+            children: [
+              {
+                name: 'Visualization',
+                value: 2
+              },
+              {
+                name: 'Log',
+                value: 1
+              }
+            ]
+          },
+          {
+            name: 'Testing',
+            value: 2
+          },
+        ]
+      },
+      {
+        name: 'Model',
+        value: 17,
+      },
+      {
+          name: 'Wrapper',
+          value: 16
+      },
+      {
+          name: 'Framework',
+          value: 11
+      },
+      {
+          name: 'Tutorial',
+          value: 5
+      }
+      
+    ]
+  },
+  {
+    name: 'DR',
+    children: [
+      {
+        name: 'Computer Vision',
+        children: [
+          {
+            name: 'Model',
+            value: 12
+          },
+          {
+            name: 'Framework',
+            value: 3
+          },
+          {
+            name: 'Wrapper',
+            value: 1
+          },
+          {
+            name: "Data Processing",
+            value: 1
+          },
+          {
+            name: 'Common Functionality',
+            value: 1
+          },
+        ]
+      },
+      {
+        name: 'Natural\nLanguage\nProcessing',
+        children: [
+          {
+            name: 'Model',
+            value: 6
+          },
+          {
+            name: 'Framework',
+            value: 5
+          }
+        ]
+      },
+      {
+        name: 'Reinforcement\nLearning',
+        children: [
+          {
+            name: 'Framework',
+            value: 4
+          },
+          {
+            name: 'Model',
+            value: 1
+          },
+          
+          {
+            name: "Environment",
+            value: 1
+          }
+        ]
+      },
+      {
+        name: 'Physics',
+        children: [
+          {
+            name: 'Model',
+            value: 3
+          },
+          {
+            name: 'Framework',
+            value: 2
+          },
+        ]
+      },
+      {
+        name: 'Biology',
+        children: [
+          {
+            name: 'Model',
+            value: 3
+          },
+          {
+            name: 'Framework',
+            value: 1
+          },
+          {
+            name: 'Data Processing',
+            value: 1
+          },
+        ]
+      },
+      {
+        name: 'Medicine',
+        children: [
+          {
+            name: 'Model',
+            value: 3
+          },
+          {
+            name: 'Framework',
+            value: 1
+          },
+        ]
+      },
+      {
+        name: 'Audio',
+        children: [
+          {
+            name: 'Framework',
+            value: 2
+          },
+          {
+            name: 'Model',
+            value: 1
+          }
+        ]
+      },
+      {
+        name: 'Graph DL',
+        children: [
+          {
+            name: 'Framework',
+            value: 1
+          },
+          {
+            name: 'Model',
+            value: 1
+          },
+        ]
+      },
+      {
+        name: 'Automatic Testing',
+        children: [
+          {
+            name: 'Tools',
+            value: 1
+          },
+        ]
+      },
+      {
+        name: 'Transfer Learning',
+        children: [
+          {
+            name: 'Model',
+            value: 1
+          },
+        ]
+      },
+      {
+        name: 'Time Series',
+        children: [
+          {
+            name: 'Model',
+            value: 1
+          },
+        ]
+      },
+      {
+        name: 'Signal Processing',
+        children: [
+          {
+            name: 'Model',
+            value: 1
+          },
+        ]
+      },
+      {
+        name: 'Multi-task Learning',
+        children: [
+          {
+            name: 'Framework',
+            value: 1
+          },
+        ]
+      },
+      {
+        name: 'Geography',
+        children: [
+          {
+            name: 'Wrapper',
+            value: 1
+          },
+        ]
+      },
+      
+    ]
+  }
+];
+option = {
+  series: {
+    type: 'sunburst',
+    // emphasis: {
+    //     focus: 'ancestor'
+    // },
+    data: data,
+    radius: [0, '90%'],
+    label: {
+      rotate: 'radial'
+    }
+  }
+};
+
+option && myChart.setOption(option);
+
+</script>
+
+<h2 style="text-align: left;margin-bottom:0px">Project Domain Distribution</h2>
+
+<h1 style="text-align: left;margin-bottom:0px">Supply Chain Evolutionary Factors</h1>
 </div><!-- .entry-content -->
 
 
