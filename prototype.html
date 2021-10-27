@@ -1917,8 +1917,40 @@ option && myChart.setOption(option);
 </script>
 
 <h1 style="text-align: left;margin-bottom:0px">Supply Chain Evolutionary Factors</h1>
+<p>We consider three categories of factors that may related to the number of downstream projects.</p>
+<ul>
+    <li><b>Project Characteristics</b>: <i>#commits</i>; <i>#authors</i>; <i>age</i>; <i>#stars</i></li>
+    <li><b>Package Domain</b>: <i>DR / NDR</i>; <i>sub_domain</i></li>
+    <li><b>SC Characteristics</b>: <i>SC name (TensorFlow SC / PyTorch SC)</i>; <i>No.layer</i>; <i>#dependencies</i></li>
+</ul>
+<p>The response are the number of downstream projects of a package. We fit Generalized additive models (GAM) on those packages with no less than ten downstream projects (357 packages). We use the variance inflation factor (VIF) to analyze the multicollinearity of the prediction variables. And the VIF of all variables is less than 5, indicating there is no significant multicollinearity among all the variables. We first include all variables into the analysis, and then used the backward elimination method to gradually eliminate the insignificant variables through the p value (p < 0.05).</p>
+<p>The final model has three predictors: <i>DR / NDR</i>, <i>#authors</i>, and <i>#dependencies</i>. The deviance explained is 41%. The fitting results are shown in the following two tables.</p>
+<ul>
+    <li>All the variables are significant except <i>domain: NDR</i>.</li>
+    <li> The order of edf of two variable smoothing functions is: s(#authors) > s(#dependencies), which means that the influence of <i>#authors</i> is the more critical than <i>>#dependencies</i>.</li>
+    <li>The influences of <i>#authors</i> on <i>#downstream_projects</i> is nonlinear. When <i>#authors</i> is small, it is negatively related to <i>#downstream_projects</i>, whereas when <i>#authors</i> reaches a certain degree (> 7 developers), it shows a significantly positive relationship. This may indicate that for small teams, the collaboration among team members may reduce the efficiency of developers.</li>
+    <li>The relationship between <i>#dependencies</i> and <i>#downstream_projects</i> is linear, and <i>#dependencies</i> is negatively related with <i>#downstream_projects</i>, suggesting packages having fewer packages as dependencies are likely to see an increase in downloads.</li>
+</ul>
+<table style="margin: auto;font-size: small;width: 60%;">
+    <caption align="top" style="text-align: center;">Parameter Estimates</caption>
+    <tr> <th>Parameter</th> <th>Estimate</th> <th>Standard Error</th> <th>t</th> <th>Pr > |t|</th> </tr>
+    <tr> <td>Intercept</td> <td>3.197</td> <td>0.244</td> <td>13.092</td> <td>< 2e-16</td> </tr>
+    <tr> <td>domain related (DR)</td> <td>0.558</td> <td>0.262</td> <td>2.126</td> <td>0.035</td> </tr>
+    <tr> <td>non-domain related (NDR)</td> <td>0.474</td> <td>0.263</td> <td>1.807</td> <td>0.072</td> </tr>
+</table>
 
+<table style="margin: auto;font-size: small;width: 60%;">
+    <caption align="top" style="text-align: center;">Fit Summary for Smoothing Components</caption>
+    <tr> <th>Smooth Terms</th> <th>edf</th> <th>Ref.df</th> <th>F</th> <th>p-values</th> </tr>
+    <tr> <td>s(#authors)</td> <td>4.101</td> <td>4.976</td> <td>33.23</td> <td>< 2e-16</td> </tr>
+    <tr> <td>s(#dependencies)</td> <td>1.809</td> <td>2.287</td> <td>5.80</td> <td>0.003</td> </tr>
+</table>
 
+<p>The following two figures show the fitting results of smoothing function for #authors and $dependencies</p>
+<figure class="half" style="display:flex">
+    <img style="width:500px" src="imgs/author_smooth.png">
+    <img style="width:450px" src="imgs/dependency_smooth.png">
+</figure>
 
 </div><!-- .entry-content -->
 
