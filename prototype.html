@@ -12,7 +12,7 @@
 		
 		<div class="post-container" style="height:80px">
 			<div class="post-thumb" style="padding-top:10px">
-					<h1 class="site-title"><a target="_blank" title="Kai Gao&#39;s Homepage" rel="home">The Structure and Evolution of Software Supply Chain</a></h1>
+					<h1 class="site-title"><a target="_blank" rel="home" style="font-size: 36px;">The Structure and Evolution of Software Supply Chain</a></h1>
 			</div>
 		</div>
     <script src="echarts.js"></script>
@@ -581,7 +581,7 @@ option2 && myChart2.setOption(option2);
 
 <p>The following figure shows the distribution of the fraction of downstream projects obtained in the first and last month of the packages in the two SCs. In the first month, the fraction of downstream projects gained is 5.50%/13.32% (median/mean for TensorFlow SC) and 5.97% / 12.05% (median/mean for PyTorch SC). For the last month, the fraction of downstream projects gained is 11.99% / 16.22% (median / mean for TensorFlow SC) and 12.50%/16.27% (median / mean for PyTorch SC). </p>
 <p>By applying the Mann-Whitney U test, we find that for both SCs, the distributions are different (p-value < 0.001) with a medium effect size (TensorFlow SC: 0.27; PyTorch SC: 0.27). It means that for the packages in DL SCs, the downstream projects do not have explosive growth in the early stage. Compared to the early stage, the project accumulation in the later stage is faster. For example, <a href="https://tvm.apache.org/" style="font-weight: bold;">tvm</a> is a DL compiler stack for cpu, gpu and specialized accelerators, which is in the second layer of PyTorch SC and was released on 2017-07-30. During the first three months after its release, it attracted four downstream projects, and since then this number increases to 12 projects per month.</p>
-<div id="chart5" style="width: 70%; height: 400px; text-align: center;margin: auto;"></div>
+<div id="chart5" style="width: 100%; height: 400px; text-align: center;margin: auto;"></div>
 <script type="text/javascript">
   var chartDom = document.getElementById('chart5');
   var myChart = echarts.init(chartDom);
@@ -1350,8 +1350,576 @@ option && myChart.setOption(option);
 
 
 <h2 style="text-align: left;margin-bottom:0px">Project Domain Distribution</h2>
+<p>The application fields of projects in a SC can help us understand the status of SC evolution. We perform topic modelling on project READMEs with Latent Dirichlet Allocation (LDA) to determine project types. The following two figures show the project types of the TensorFlow SC and the PyTorch SC respectively.</p>
+<p>We can see that for both SCs, their projects all cover four fields: research, application, learning, and software support. An obvious difference is that the TensorFlow SC has far more project types than that of the PyTorch SC: 23 VS 13. This may be due to the relatively small number of projects in the PyTorch SC.</p>
+<div class="alert">
+    <strong>Note: </strong> 
+    It cannot be assumed that the unidentified types do not exist in the SC, which may be because their number is small, the LDA algorithm cannot identify.
+</div>
+
+<p>For two SCs, their application categories contain rich types, both including the primary and important areas of DL: CV, NLP, and RL. TensorFlow SC also involves the areas such as <i>Self-driving</i> and <i>Robot Control</i>, which are closely related to the industry. This is because deployability in production environments is still TensorFlow’s strength with <a href="https://github.com/tensorflow/serving">TensorFlow Serving</a> being the most popular model server. Moreover, <i>Raspberry Pi APP</i> is a noteworthy type which refers to the applications based on <a href="https://www.raspberrypi.org">Raspberry Pi</a> that is a series of small single-board computers (SBCs) to help people of all ages and knowledge levels explore the world of programming and computing. This kind of application appears in the SC mainly because of a package named <a href="https://www.tensorflow.org/lite/">TensorFlow Lite</a> that enables developers to run DL models quickly on mobile and embedded devices (such as Raspberry Pi) with low latency. TensorFlow has a much bigger and established community behind it, so it is easier to find resources and tutorials (Type: <i>Course Assignment, Tutorial</i>) to learn TensorFlow. It is also preferred by more DL competition participants although it is more difficult to start with, for which TensorFlow's high-level API <a href="https://keras.io">Keras contributes a lot</a>.</p>
+
+<div id="chart8" style="width:100%; height:800px;text-align: center;margin: auto;"></div>
+<script type="text/javascript">
+var chartDom = document.getElementById('chart8');
+var myChart = echarts.init(chartDom);
+var option;
+
+var data = [
+  {
+    name: 'Projects',
+    value: 91788,
+    children: [
+      {
+        name: 'Research',
+        value: 7225,
+        children: [
+            { name: 'Paper', value: 4558},
+            { name: 'CNN', value: 937},
+            { name: 'GAN', value: 1730},
+        ]
+      },
+      {
+        name: 'Application',
+        value: 56651,
+        children: [
+            {
+                name: "CV",
+                value: 34037,
+                children: [
+                    { name: 'Image Classification', value: 6613, collapsed: null},
+                    { name: 'Image Style Transfer', value: 2579, collapsed: null},
+                    { name: 'Image Generation', value: 1743, collapsed: null},
+                    { name: 'Image Recognition', value: 7927, collapsed: null},
+                    { name: 'Object Detection', value: 10088, collapsed: null},
+                    { name: 'Disease Detection', value: 1457, collapsed: null},
+                    { name: 'Self-Driving', value: 3630, collapsed: null},
+                ]
+            },
+            { name: 'Price Prediction', value: 3581},
+            { name: 'Raspberry Pi APP', value: 3016},
+            {
+                name: "RL",
+                value: 5346,
+                children: [
+                    { name: 'Robot Control', value: 1923, collapsed: null},
+                    { name: 'Game AI', value: 3423, collapsed: null},
+                ]
+            },
+            { name: 'Speech Processing', value: 2986},
+            {
+                name: "NLP",
+                value: 7685,
+                children: [
+                    { name: 'Text Classification', value: 3579, collapsed: null},
+                    { name: 'Machine Translation', value: 1795, collapsed: null},
+                    { name: 'Sentiment Analysis', value: 2311, collapsed: null},
+                ]
+            },
+        ]
+      },
+      {
+        name: 'Learning',
+        value: 10040,
+        children: [
+            { name: 'Competition', value: 1043},
+            { name: 'Tutorial', value: 1155},
+            { name: 'Course Assignment', value: 7842},
+        ]
+      },
+      {
+        name: 'Software Support',
+        value: 7163,
+        children: [
+            { name: 'Deployment', value: 1964},
+            { name: 'Tools', value: 5199},
+        ]
+      },
+      {
+        name: 'Unknown',
+        value: 10709
+      },
+    ]
+  },
+];
+option = {
+    tooltip: {
+        trigger: 'item',
+        triggerOn: 'mousemove'
+    },
+  series: {
+    type: 'tree',
+    // emphasis: {
+    //     focus: 'ancestor'
+    // },
+    data: data,
+    label: {
+        position: "left",
+        fontSize: 14,
+        fontFamily: "Helvetica",
+        fontWeight: "bold",
+    },
+    leaves: {
+        label: {
+            position: "left"
+        }
+        
+    }
+  }
+};
+
+option && myChart.setOption(option);
+</script>
+
+<div id="chart9" style="width:100%; height:800px;text-align: center;margin: auto;"></div>
+<script type="text/javascript">
+var chartDom = document.getElementById('chart9');
+var myChart = echarts.init(chartDom);
+var option;
+
+var data = [
+  {
+    name: 'Projects',
+    value: 42564,
+    children: [
+      {
+        name: 'Research',
+        value: 10853,
+        children: [
+            { name: 'Paper', value: 9036},
+            { name: 'CNN', value: 1817},
+        ]
+      },
+      {
+        name: 'Application',
+        value: 21011,
+        children: [
+            {
+                name: "CV",
+                value: 13260,
+                children: [
+                    { name: 'Image Classification', value: 5710, collapsed: null},
+                    { name: 'Image Style Transfer', value: 2617, collapsed: null},
+                    { name: 'Image Caption Generation', value: 1482, collapsed: null},
+                    { name: 'Face Generation', value: 1001, collapsed: null},
+                    { name: 'Face Recognition', value: 685, collapsed: null},
+                    { name: 'Object Detection', value: 1765, collapsed: null},
+                ]
+            },
+            {
+                name: "RL",
+                value: 3239,
+                children: [
+                    { name: 'Game AI', value: 3239, collapsed: null},
+                ]
+            },
+            {
+                name: "NLP",
+                value: 4512,
+                children: [
+                    { name: 'Text Classification', value: 2710, collapsed: null},
+                    { name: 'Sentiment Analysis', value: 1802, collapsed: null},
+                ]
+            },
+        ]
+      },
+      {
+        name: 'Learning',
+        value: 2934,
+        children: [
+            { name: 'Course Assignment', value: 2934},
+        ]
+      },
+      {
+        name: 'Software Support',
+        value: 1957,
+        children: [
+            { name: 'Tools', value: 1957},
+        ]
+      },
+      {
+        name: 'Unknown',
+        value: 5809
+      },
+    ]
+  },
+];
+option = {
+    tooltip: {
+        trigger: 'item',
+        triggerOn: 'mousemove'
+    },
+  series: {
+    type: 'tree',
+    // emphasis: {
+    //     focus: 'ancestor'
+    // },
+    data: data,
+    label: {
+        position: "left",
+        fontSize: 14,
+        fontFamily: "Helvetica",
+        fontWeight: "bold",
+    },
+    leaves: {
+        label: {
+            position: "left"
+        }
+        
+    }
+  }
+};
+
+option && myChart.setOption(option);
+</script>
+
+<p>The following two figures demonstrate the evolution of the project types distribution in the two SCs.</p>
+<ul>
+    <li>The distribution of project types fluctuates over time, among which CV contributes the largest proportion -- about 40% (30%) of all the projects in the TensorFlow (PyTorch) SC, indicating that CV has always been a hot field in the application of DL technology. </li>
+    <li>One obvious difference is that the proportion of <i>Research</i> in the PyTorch SC is much higher than that of the TensorFlow SC: median: 32.3% vs 8.8%.</li>
+    <li>Similar to the packages, there are also more projects about <i>Learning Resources</i> and <i>Software Support</i> in the TensorFlow SC than the PyTorch SC.</li>
+    <li>The proportion of <i>Raspberry Pi based APP</i> is gradually increasing, which means that smart robots and embedded DL projects are gradually attracting the attention of more and more researchers.</li>
+</ul>
+
+<div id="chart10" style="width:100%; height:800px;text-align: center;margin: auto;"></div>
+<script type="text/javascript">
+var chartDom = document.getElementById('chart10');
+var myChart = echarts.init(chartDom);
+var raw_data1 = [
+        [59, 144, 213, 315, 815, 1337, 1473, 1714, 2564, 3311, 3898, 3912, 4246, 4410, 4385, 3154],
+        [21, 39, 57, 123, 195, 350, 453, 587, 751, 1028, 1042, 1185, 1297, 1238, 1226, 927],
+        [22, 37, 65, 77, 181, 304, 341, 363, 484, 791, 814, 833, 981, 1013, 960, 752],
+        [5, 5, 19, 29, 37, 97, 136, 202, 238, 294, 305, 436, 443, 488, 511, 413],
+        [4, 3, 15, 10, 28, 42, 58, 78, 156, 176, 250, 481, 501, 541, 488, 357],
+        [9, 36, 35, 69, 123, 150, 214, 220, 435, 530, 521, 611, 775, 702, 671, 696],
+        [28, 22, 41, 57, 111, 237, 347, 342, 473, 689, 827, 842, 1017, 953, 1006, 612],
+        [24, 32, 51, 95, 179, 298, 397, 406, 509, 644, 766, 803, 908, 926, 876, 653],
+        [3, 12, 31, 24, 61, 105, 90, 100, 182, 274, 328, 379, 414, 433, 426, 270],
+];
+var xaxis1 = ["2015/11-2016/01", "2016/02-2016/04", "2016/05-2016/07", "2016/08-2016/10", "2016/11-2017/01", "2017/02-2017/04", "2017/05-2017/07", "2017/08-2017/10", "2017/11-2018/01", "2018/02-2018/04", "2018/05-2018/07", "2018/08-2018/10", "2018/11-2019/01", "2019/02-2019/04", "2019/05-2019/07", "2019/08-2019/10"];
+var dic1 = {"2015/11-2016/01": 0, "2016/02-2016/04": 1, "2016/05-2016/07": 2, "2016/08-2016/10": 3, "2016/11-2017/01": 4, "2017/02-2017/04": 5, "2017/05-2017/07": 6, "2017/08-2017/10": 7, "2017/11-2018/01": 8, "2018/02-2018/04": 9, "2018/05-2018/07": 10, "2018/08-2018/10": 11, "2018/11-2019/01": 12, "2019/02-2019/04": 13, "2019/05-2019/07": 14, "2019/08-2019/10": 15};
+var data1 = new Array();
+for (var i = 0; i < 9; i++) {
+    data1[i] = new Array();
+}
+var total1 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+for (var i = 0; i < 16; i++) {
+    for (var j = 0; j < 9; j++) {
+        total1[i] = total1[i] + raw_data1[j][i];
+    }
+}
+for (var i = 0; i < 9; i++) {
+    for (var j = 0; j < 16; j++) {
+        data1[i].push(raw_data1[i][j] / total1[j] * 100);
+    }
+}
+var option = {
+		
+		//*************这里就是控制显示的样式************
+        tooltip: {
+            trigger: 'axis', //这里用的是坐标轴触发,多个数据
+            axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+            },
+            
+            formatter: function (params) {
+                var relVal = params[0].name;
+                var value = 0;
+                for (var i = 0, l = params.length; i < l; i++) {
+                    //marker 就是带颜色的小圆圈 seriesName x轴名称  value  y轴值 后面就是计算百分比
+                    relVal += '<br/>' + params[i].marker + params[i].seriesName + '  : count : ' + parseFloat(raw_data1[i][dic1[params[0].name]]) +
+                        ', percentage : '
+                        + Math.round(params[i].value) + "%";
+                }
+                return relVal;
+            },
+
+        },
+
+        title: [
+            {
+            text: 'Evolution of the Project Types Distribution in TensorFlow SC',
+            left: 'center',
+            textStyle: {
+                    fontSize: 14
+                }
+            },
+        ],
+        legend: {
+            data: ['CV', 'Learning', 'NLP', 'Price Prediction', 'Raspberry Pi based Application', 'RL', 'Research', 'Software Support', 'Speech Processing'],
+            top: "2%"
+        },
+        tite: {
+
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        xAxis: [
+            {
+                type: 'category',
+                data: xaxis1,
+                axisLabel: {
+                    interval: 0,
+                    rotate: 40
+                }
+            }
+        ],
+        yAxis: [
+            {
+                type: 'value',
+                min: 0,
+                max: 100
+            }
+        ],
+        series: [
+            {
+                name: 'CV',
+                type: 'bar',
+                stack: 'project types',
+                emphasis: {
+                    focus: 'series'
+                },
+           
+                data: data1[0]
+            },
+            {
+                name: 'Learning',
+                type: 'bar',
+                stack: 'project types',
+                emphasis: {
+                    focus: 'series'
+                },
+                data: data1[1]
+            },
+            {
+                name: 'NLP',
+                type: 'bar',
+                stack: 'project types',
+                emphasis: {
+                    focus: 'series'
+                },
+                data: data1[2]
+            },
+            {
+                name: 'Price Prediction',
+                type: 'bar',
+                stack: 'project types',
+                emphasis: {
+                    focus: 'series'
+                },
+                data: data1[3]
+            },
+            {
+                name: 'Raspberry Pi based Application',
+                type: 'bar',
+                stack: 'project types',
+                emphasis: {
+                    focus: 'series'
+                },
+                data: data1[4]
+            },
+            {
+                name: 'RL',
+                type: 'bar',
+                stack: 'project types',
+                emphasis: {
+                    focus: 'series'
+                },
+                data: data1[5]
+            },
+            {
+                name: 'Research',
+                type: 'bar',
+                stack: 'project types',
+                emphasis: {
+                    focus: 'series'
+                },
+                data: data1[6]
+            },
+            {
+                name: 'Software Support',
+                type: 'bar',
+                stack: 'project types',
+                emphasis: {
+                    focus: 'series'
+                },
+                data: data1[7]
+            },
+            {
+                name: 'Speech Processing',
+                type: 'bar',
+                stack: 'project types',
+                emphasis: {
+                    focus: 'series'
+                },
+                data: data1[8]
+            },
+        ]
+    };
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+
+option && myChart.setOption(option);
+</script>
+
+<div id="chart11" style="width:100%; height:800px;text-align: center;margin: auto;"></div>
+<script type="text/javascript">
+var chartDom = document.getElementById('chart11');
+var myChart = echarts.init(chartDom);
+var raw_data = [[106, 211, 470, 665, 1172, 1489, 2069, 2498, 2903, 2482, 1131],
+[42, 68, 120, 148, 204, 306, 407, 517, 711, 539, 247],
+[63, 92, 184, 248, 473, 457, 708, 781, 1031, 722, 392],
+[19, 28, 57, 100, 173, 342, 731, 797, 605, 468, 204],
+[165, 251, 446, 780, 1044, 1328, 1640, 1882, 2533, 1849, 962],
+[22, 63, 82, 140, 195, 204, 254, 352, 447, 302, 180]];
+var xaxis = ["2017/03-2017/05", "2017/06-2017/08", "2017/09-2017/11", "2017/12-2018/02", "2018/03-2018/05", "2018/06-2018/08", "2018/09-2018/11", "2018/12-2019/02", "2019/03-2019/05", "2019/06-2019/08", "2019/09-2019/11"]
+var dic = {"2017/03-2017/05": 0, "2017/06-2017/08": 1, "2017/09-2017/11": 2, "2017/12-2018/02": 3, "2018/03-2018/05": 4, "2018/06-2018/08": 5, "2018/09-2018/11": 6, "2018/12-2019/02": 7, "2019/03-2019/05": 8, "2019/06-2019/08": 9, "2019/09-2019/11": 10};
+var data = new Array();
+for (var i = 0; i < 6; i++) {
+    data[i] = new Array();
+}
+var total = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+for (var i = 0; i < 11; i++) {
+    for (var j = 0; j < 6; j++) {
+        total[i] = total[i] + raw_data[j][i];
+    }
+}
+for (var i = 0; i < 6; i++) {
+    for (var j = 0; j < 11; j++) {
+        data[i].push(raw_data[i][j] / total[j] * 100);
+    }
+}
+var option = {
+		
+		//*************这里就是控制显示的样式************
+        tooltip: {
+            trigger: 'axis', //这里用的是坐标轴触发,多个数据
+            axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+            },
+            
+            formatter: function (params) {
+                var relVal = params[0].name;
+                var value = 0;
+                for (var i = 0, l = params.length; i < l; i++) {
+                    //marker 就是带颜色的小圆圈 seriesName x轴名称  value  y轴值 后面就是计算百分比
+                    relVal += '<br/>' + params[i].marker + params[i].seriesName + '  : count : ' + parseFloat(raw_data[i][dic[params[0].name]]) +
+                        ', percentage : '
+                        + Math.round(params[i].value) + "%";
+                }
+                return relVal;
+            },
+
+        },
+
+        title: [
+            {
+            text: 'Evolution of the Project Types Distribution in PyTorch SC',
+            left: 'center',
+            textStyle: {
+                    fontSize: 14
+                }
+            },
+        ],
+        legend: {
+            data: ['CV', 'Learning', 'NLP', 'RL', 'Research', 'Software Support'],
+            top: "3%"
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        xAxis: [
+            {
+                type: 'category',
+                data: xaxis,
+                axisLabel: {
+                    interval: 0,
+                    rotate: 40
+                }
+            }
+        ],
+        yAxis: [
+            {
+                type: 'value',
+                min: 0,
+                max: 100
+            }
+        ],
+        series: [
+            {
+                name: 'CV',
+                type: 'bar',
+                stack: 'project types2',
+                emphasis: {
+                    focus: 'series'
+                },
+           
+                data: data[0]
+            },
+            {
+                name: 'Learning',
+                type: 'bar',
+                stack: 'project types2',
+                emphasis: {
+                    focus: 'series'
+                },
+                data: data[1]
+            },
+            {
+                name: 'NLP',
+                type: 'bar',
+                stack: 'project types2',
+                emphasis: {
+                    focus: 'series'
+                },
+                data: data[2]
+            },
+            {
+                name: 'RL',
+                type: 'bar',
+                stack: 'project types2',
+                emphasis: {
+                    focus: 'series'
+                },
+                data: data[3]
+            },
+            {
+                name: 'Research',
+                type: 'bar',
+                stack: 'project types2',
+                emphasis: {
+                    focus: 'series'
+                },
+                data: data[4]
+            },
+            {
+                name: 'Software Support',
+                type: 'bar',
+                stack: 'project types2',
+                emphasis: {
+                    focus: 'series'
+                },
+                data: data[5]
+            },
+        ]
+    };
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+
+option && myChart.setOption(option);
+</script>
 
 <h1 style="text-align: left;margin-bottom:0px">Supply Chain Evolutionary Factors</h1>
+
+
+
 </div><!-- .entry-content -->
 
 
