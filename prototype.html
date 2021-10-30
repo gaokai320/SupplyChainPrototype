@@ -333,7 +333,7 @@ option2 && myChart2.setOption(option2);
 <ul>
     <li>The cumulative changes of downstream projects in TensorFlow SC and PyTorch SC are similar.</li>
     <li>More than 70% of the projects have 10% of their downstream projects early, in 20% of their life cycle after the initial release (label A).</li>
-    <li>After this initial rising of popularity, the growth of half of the projects' downstream projects tends to stabilize, e.g., half of the projects take 40% of their life cycle to have 50\% of their downstream projects (label B); and half of the projects take about 70% of their life cycle to have 90% of their downstream projects (label C)</li>
+    <li>After this initial rising of popularity, the growth of half of the projects' downstream projects tends to stabilize, e.g., half of the projects take 40% of their life cycle to have 50% of their downstream projects (label B); and half of the projects take about 70% of their life cycle to have 90% of their downstream projects (label C)</li>
 </ul>
 <div id="chart3" style="width:50%; height:400px;text-align: center;float:left;"></div>
 <script type="text/javascript">
@@ -1090,22 +1090,21 @@ var data = [
         ]
       },
       {
-        name: 'Model',
-        value: 17,
-      },
-      {
-          name: 'Wrapper',
-          value: 16
-      },
-      {
           name: 'Framework',
-          value: 11
+          value: 14
+      },
+      {
+        name: 'Model',
+        value: 11,
       },
       {
           name: 'Tutorial',
-          value: 5
-      }
-      
+          value: 2
+      },
+      {
+          name: 'Wrapper',
+          value: 1
+      },
     ]
   },
   {
@@ -1357,7 +1356,7 @@ option && myChart.setOption(option);
     It cannot be assumed that the unidentified types do not exist in the SC, which may be because their number is small, the LDA algorithm cannot identify.
 </div>
 
-<p>For two SCs, their application categories contain rich types, both including the primary and important areas of DL: CV, NLP, and RL. TensorFlow SC also involves the areas such as <i>Self-driving</i> and <i>Robot Control</i>, which are closely related to the industry. This is because deployability in production environments is still TensorFlow’s strength with <a href="https://github.com/tensorflow/serving">TensorFlow Serving</a> being the most popular model server. Moreover, <i>Raspberry Pi APP</i> is a noteworthy type which refers to the applications based on <a href="https://www.raspberrypi.org">Raspberry Pi</a> that is a series of small single-board computers (SBCs) to help people of all ages and knowledge levels explore the world of programming and computing. This kind of application appears in the SC mainly because of a package named <a href="https://www.tensorflow.org/lite/">TensorFlow Lite</a> that enables developers to run DL models quickly on mobile and embedded devices (such as Raspberry Pi) with low latency. TensorFlow has a much bigger and established community behind it, so it is easier to find resources and tutorials (Type: <i>Course Assignment, Tutorial</i>) to learn TensorFlow. It is also preferred by more DL competition participants although it is more difficult to start with, for which TensorFlow's high-level API <a href="https://keras.io">Keras contributes a lot</a>.</p>
+<p>For two SCs, their application categories contain rich types, both including the primary and important areas of DL: CV, NLP, and RL. TensorFlow SC also involves the areas such as <i>Self-driving</i> and <i>Robot Control</i>, which are closely related to the industry. This is because deployability in production environments is still TensorFlow’s strength with <a href="https://github.com/tensorflow/serving">TensorFlow Serving</a> being the most popular model server. Moreover, <i>Raspberry Pi APP</i> is a noteworthy type which refers to the applications based on <a href="https://www.raspberrypi.org">Raspberry Pi</a> that is a series of small single-board computers (SBCs) to help people of all ages and knowledge levels explore the world of programming and computing. This kind of application appears in the SC mainly because of a package named <a href="https://www.tensorflow.org/lite/">TensorFlow Lite</a> that enables developers to run DL models quickly on mobile and embedded devices (such as Raspberry Pi) with low latency. TensorFlow has a much bigger and established community behind it, so it is easier to find resources and tutorials (Type: <i>Course Assignment, Tutorial</i>) to learn TensorFlow. It is also preferred by more DL competition participants although it is more difficult to start with, for which TensorFlow's high-level API <a href="https://keras.io">Keras</a> contributes a lot.</p>
 
 <div id="chart8" style="width:100%; height:800px;text-align: center;margin: auto;"></div>
 <script type="text/javascript">
@@ -1367,7 +1366,7 @@ var option;
 
 var data = [
   {
-    name: 'Projects',
+    name: 'TensorFlow\nProjects',
     value: 91788,
     children: [
       {
@@ -1479,7 +1478,7 @@ var option;
 
 var data = [
   {
-    name: 'Projects',
+    name: 'PyTorch\nProjects',
     value: 42564,
     children: [
       {
